@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-cn"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<style type="text/css">
+.next{
+    margin-left:10px;
+    cursor:pointer;
+}
+.prev{
+    margin-left:10px;
+    cursor:pointer;
+}
+</style>
+<script src='http://code.jquery.com/jquery-1.11.1.min.js'></script>
+</head>
+<body style="width:100%;height:1000px">
+<div style="width:450px;margin:0 auto;height:500px">
+    <div id="dataShow" style="width:450px;margin:0 atuo;height:100%">
+        <table id="table" style="text-align:center"></table>
+    </div>
+    <div id="page"><span class="prev" style="text-decoration:underline">上一页</span><span class="next" style="text-decoration:underline">下一页</span>，总共<span class="total"></span>页,当前第<span class="show_current"></span>页</div>
+</div>
+
+<script type="text/javascript">
+function qukong(a){
+if(a==""||null){
+    return "无";
+}
+else{
+    return a;
+}
+};
+$.ajax({
+    type:"get",
+    url:"https://route.showapi.com/44-6?showapi_appid=32868&showapi_sign=37c9611696e648c9b5febf972ebffb99",
+    dataType:"json",
+    success:function(msg){
+    var data_msg = msg.showapi_res_body.result;
+
+ //编造表数据  
+//表头  
+var head=  
+    '<thead><tr>'+  
+    '<td> 彩票种类 </td>'+  
+    '<td> 地区 </td>'+  
+    '<td> 分类 </td>'+  
+    '<td> 描述 </td>'+  
+    '<td> 名称</td>'+  
+    '</tr></thead><tbody>';
+var end ='</tbody>' 
+//表内容，后台返回的内容可以封装到这里，随时取用，但是如果数据量很大估计会相当耗资源。  
+var pageData=[];
+    for(var key in data_msg){
+    var data='<tr>'+  
+    '<td>'+qukong(data_msg[key].series)+'</td>'+  
+    '<td>'+qukong(data_msg[key].area)+'</td>'+  
+    '<td>'+qukong(data_msg[key].issuer)+'</td>'+  
+    '<td>'+qukong(data_msg[key].notes)+'</td>'+  
+    '<td>'+qukong(data_msg[key].descr)+'</td>'+  
+    '</tr>';  
+    pageData.push(data);  
+    }
+
+$(function(){  
+    var Count = pageData.length;//记录条数 
+    alert(Count);
+    var PageSize=10;//设置每页示数目  
+    var PageCount=Math.ceil(Count/PageSize);//计算总页数  
+    var currentPage =1;//当前页，默认为1。  
+    //造个简单的分页按钮  
+$('.total').html(PageCount);
+$('.show_current').html(currentPage);
+    //显示默认页（第一页）  
+    $('#table').empty().append(head);  
+    for(i=(currentPage-1)*PageSize;i<10;i++){    
+        $('#table').append(pageData[i]);  
+    }  
+    $('#table').append(end);  
+      
+    //显示选择页的内容  
+    $('.next').click(function(){  
+      if(currentPage < PageCount){
+      currentPage ++;
+      $('.show_current').html(currentPage);
+      $('#table').html('');  
+        $('#table').append(head);  
+        for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++){  
+            $('#table').append(pageData[i]);  
+        }  
+        $('#table').append(end);        
+} 
+    });
+    $('.prev').click(function(){
+    console.log(currentPage)     
+     if(currentPage > 1){      
+      currentPage--;
+      $('.show_current').html(currentPage);
+      $('#table').html('');  
+        $('#table').append(head);  
+        for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++){  
+            $('#table').append(pageData[i]);  
+        }  
+        $('#table').append(end);        
+} 
+    });
+  
+});
+
+    },
+
+    error:function(){
+     alert("网络错误")   
+    }
+})
+
+</script>
+</body>
+</html>
