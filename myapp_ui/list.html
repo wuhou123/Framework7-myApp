@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width" name="viewport">
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="css/weui.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery-weui.css" />
+    <link rel="stylesheet" type="text/css" href="css/shequ.css"/>
+    <style>
+        .weui_cell_bd p{
+            font-size: 14px;
+            font-family: 微软雅黑, Arial;
+        }
+        .back{
+            padding:12px 0 0 2px;
+        }        
+        .icon_back{
+            display:inline-block;
+            width:18px;
+            height:15px;
+            background:url(./images/back.png) no-repeat;
+            background-size:15px 15px;
+        }
+        .new{
+         font-weight:bold;
+         color:#888;
+         text-shadow:0 0 0px white, 0 -1px 2px #ff3, 2px -3px 3px #fd3, -2px -5px 4px #f80, 2px -8px 5px #f20;
+        }
+
+    </style>
+</head>
+<body>
+<div class="back" onclick="history.go(-1)"><i class="icon_back"></i>返回</div>
+<div class="weui_panel weui_panel_access">
+<div class="weui_cells weui_cells_access" id="cell_list">
+</div>
+</div>
+<div class="weui_tabbar">
+    <a href="index.html" class="weui_tabbar_item ">
+        <div class="weui_tabbar_icon">
+            <img src="./images/iconfont-home.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">首页</p>
+    </a>
+    <a href="cart.html" class="weui_tabbar_item">
+        <div class="weui_tabbar_icon">
+            <img src="./images/iconfont-cart.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">视频</p>
+    </a>
+    <a href="faxian.html" class="weui_tabbar_item">
+        <div class="weui_tabbar_icon">
+            <img src="./images/iconfont-faxian.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">娱乐</p>
+    </a>
+    <a href="wo.html" class="weui_tabbar_item weui_bar_item_on">
+        <div class="weui_tabbar_icon">
+            <img src="./images/iconfont-wo.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">我</p>
+    </a>
+</div>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/jquery-weui.js"></script>
+<script>
+   //获取bookid
+    var newarray = window.location.href.split("=");
+    var getid = newarray[1];    
+   //获取到书目录
+   var tbody = "";
+   $.ajax({
+    type:"get",
+    url:"http://route.showapi.com/211-1?showapi_appid=32868&showapi_sign=37c9611696e648c9b5febf972ebffb99&bookId="+getid,
+    dataType:"json",
+    success:function(msg){
+    var data = msg.showapi_res_body.book.chapterList;
+    for(key in data){
+        var trs = "";
+    trs += 
+     '<a class="weui_cell" href="./content.html?bookId='+data[key].bookId+'&cid='+data[key].cid+'">'+
+     '<div class="weui_cell_bd weui_cell_primary">'+
+      '<p>'+data[key].name+'</p>'+
+    '</div>'+
+    '<div class="weui_cell_ft"><span class="new">最新!</span></div>'+
+    '</a>';
+    tbody +=trs;
+    }
+    $('#cell_list').append(tbody);  
+    },
+    error:function(){
+        $.alert("网络错误")
+    }
+   })
+
+</script>
+</body>
+</html>

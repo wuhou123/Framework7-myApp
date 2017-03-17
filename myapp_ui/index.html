@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width" name="viewport">
+    <title>社区商城</title>
+    <link rel="stylesheet" type="text/css" href="css/weui.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery-weui.css" />
+    <style>
+        .index_image {
+            background: #fff;
+            min-height: 90px;
+            overflow-y: hidden;
+            text-align: center;
+        }
+        .index_image a{
+            color:#333;
+        }        
+        .index_image img {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            display: block;
+            background-image: url('https://img30.360buyimg.com/mobilecms/jfs/t1951/49/1526652906/3778/e2fe4d0c/56bbf7eaN94f6d38e.png');
+            background-size: 100%;
+        }
+        .swiper-container {
+            width: 100%;
+        }
+        #search_sure{
+            height:24px;
+            font-size:12px;
+            padding:2px;
+            line-height:24px;
+            border-radius:5px;
+            color:#fff;
+            background:#89c5a9;
+        }
+    </style>
+</head>
+<body>
+<div class="weui_tab">
+    <div class="weui_search_bar" id="search_bar">
+        <form class="weui_search_outer">
+            <div class="weui_search_inner">
+                <i class="weui_icon_search"></i>
+                <input type="search" class="weui_search_input" id="search_input" placeholder="搜索" required/>
+                <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+            </div>
+            <label for="search_input" class="weui_search_text" id="search_text">
+                <i class="weui_icon_search"></i>
+                <span>搜索</span>
+            </label>
+        </form>
+        <a href="javascript:" id="search_sure">确定</a>
+    </div>
+    <div class="weui_tab_bd">
+        <div class="swiper-container" data-space-between='10' >
+            <div class="swiper-wrapper" >
+                <div class="swiper-slide" ><img style="width:100%" src="images/1.jpg" alt=""></div>
+                <div class="swiper-slide" ><img style="width:100%" src="images/2.jpg" alt=""></div>
+                <div class="swiper-slide"><img style="width:100%" src="images/3.jpg" alt=""></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="weui-row">
+            <div class="weui-col-25"><div class="index_image"><a href="#"><img src="https://img30.360buyimg.com/mobilecms/jfs/t1951/49/1526652906/3778/e2fe4d0c/56bbf7eaN94f6d38e.png">超市</a></div></div>
+            <div class="weui-col-25"><div class="index_image"><a href="#"><img src="https://img30.360buyimg.com/mobilecms/jfs/t1951/49/1526652906/3778/e2fe4d0c/56bbf7eaN94f6d38e.png">超市</a></div></div>
+            <div class="weui-col-25"><div class="index_image"><a href="#"><img src="https://img30.360buyimg.com/mobilecms/jfs/t1951/49/1526652906/3778/e2fe4d0c/56bbf7eaN94f6d38e.png">超市</a></div></div>
+            <div class="weui-col-25"><div class="index_image"><a href="#"><img src="https://img30.360buyimg.com/mobilecms/jfs/t1951/49/1526652906/3778/e2fe4d0c/56bbf7eaN94f6d38e.png">超市</a></div></div>
+        </div>
+
+        <div class="weui-row">
+            <div class="weui-col-25"><div class="index_image"><a href="#"><img src="https://img30.360buyimg.com/mobilecms/jfs/t1951/49/1526652906/3778/e2fe4d0c/56bbf7eaN94f6d38e.png">超市</a></div></div>
+            <div class="weui-col-25"><div class="index_image"><a href="#"><img src="https://img30.360buyimg.com/mobilecms/jfs/t2086/295/2173920743/10014/85b3a7ac/56bbf7f7N99dfa824.jpg">生鲜</a></div></div>
+            <div class="weui-col-25"><div class="index_image"><a href="#"><img src="https://img30.360buyimg.com/mobilecms/jfs/t2068/260/2270432834/3558/e232f836/56bbf806Nfc74399a.png">美食</a></div></div>
+            <div class="weui-col-25"><div class="index_image"><a href="#"><img src="https://img30.360buyimg.com/mobilecms/jfs/t2122/145/2240662998/8952/c1de3517/56bbf815N35c25b53.jpg">外卖</a></div></div>
+        </div>
+        <div class="weui-row" id="book_list">
+       
+        </div>
+        <div id="list" class='demos-content-padded'></div>
+    </div>
+    <div class="weui_tabbar">
+        <a href="index.html" class="weui_tabbar_item weui_bar_item_on">
+            <div class="weui_tabbar_icon">
+                <img src="./images/iconfont-home.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">首页</p>
+        </a>
+        <a href="cart.html" class="weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <img src="./images/iconfont-cart.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">视频</p>
+        </a>
+        <a href="faxian.html" class="weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <img src="./images/iconfont-faxian.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">娱乐</p>
+        </a>
+        <a href="wo.html" class="weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <img src="./images/iconfont-wo.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">我</p>
+        </a>
+    </div>
+</div>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/jquery-weui.js"></script>
+<script src="js/swiper.js"></script>
+<script>
+    $(".swiper-container").swiper({
+        loop: true,
+        autoplay: 3000,
+        pagination: '.swiper-pagination',
+        paginationClickable: true
+    });
+    //图书类
+//start
+    var loading = false;  //状态标记
+    var tbody="";
+//初始加载
+$.ajax({
+    type:"get",
+    url:"http://route.showapi.com/211-2?showapi_appid=32868&showapi_sign=37c9611696e648c9b5febf972ebffb99&page=1",
+    dataType:"json",
+    success:function(msg){
+     var data_msg = msg.showapi_res_body.pagebean.contentlist;
+     console.log(data_msg);
+     for(var key in data_msg){
+     var trs = "";
+     trs +=            '<div class="weui-col-50" style="background-color:#eee;margin-top:2px">'+
+                '<a href="./list.html?id='+data_msg[key].id+'">'+
+                    '<div style="float:left;width:50%;word-wrap:break-word;color:#f2850f;padding:5px 0px 0px 5px;text-shadow:3px 3px 5px">'+
+                    '<i>'+data_msg[key].name+'</i>'+                   
+                    '</div>'+                    
+            '<div style="float:right" style="width:50%"><img src="./images/book.jpg" style="width:60px;height:60px;padding:5px 5px 0px 0px"/></div>'+
+                '</a>'+
+                '<p style="float:left;color:#888;font-size:12px;width:100%;padding-left:2px">'+data_msg[key].author+'&nbsp'+data_msg[key].updateTime+'</p>'+
+                '</div>';
+     tbody +=trs;
+     };
+     $("#book_list").append(tbody)      
+    },
+    error:function(){
+        $.alert("网络错误")
+    }
+    });
+//点赞
+     function rel(){
+       $.toast('点赞成功');
+
+     };
+     function sel(){
+       $.toast("吐完了", "cancel"); 
+     }  
+//初始end
+    var i = 1;    
+        $(document.body).infinite().on("infinite", function() {
+        tbody ="";        
+        setTimeout(function(){                    
+        $.showLoading();
+        setTimeout(function(){
+        $.hideLoading();
+        },1000)
+        },800)        
+        if(loading) return;
+        loading = true;
+        setTimeout(function(){
+        i++;
+        $.ajax({
+    type:"get",
+    url:"http://route.showapi.com/211-2?showapi_appid=32868&showapi_sign=37c9611696e648c9b5febf972ebffb99&page="+i,
+    dataType:"json",
+    success:function(msg){
+     var data_msg = msg.showapi_res_body.pagebean.contentlist;
+     for(var key in data_msg){
+     var trs = "";
+     trs +=           '<div class="weui-col-50" style="background-color:#eee;margin-top:2px">'+
+                '<a href="./list.html?id='+data_msg[key].id+'">'+
+                    '<div style="float:left;width:50%;word-wrap:break-word;color:#f2850f;padding:5px 0px 0px 5px;text-shadow:3px 3px 5px">'+
+                    '<i>'+data_msg[key].name+'</i>'+                   
+                    '</div>'+                    
+            '<div style="float:right" style="width:50%"><img src="./images/book.jpg" style="width:60px;height:60px;padding:5px 5px 0px 0px"/></div>'+
+                '</a>'+
+                '<p style="float:left;color:#888;font-size:12px;width:100%;padding-left:2px">'+data_msg[key].author+'&nbsp'+data_msg[key].updateTime+'</p>'+
+                '</div>';
+     tbody +=trs;
+     };
+      $("#book_list").append(tbody)   
+    },
+    error:function(){
+        $.alert("网络错误")
+    }
+    });                      
+            
+            loading = false;
+        }, 2000);   //模拟延迟    
+    //if(i>=8){$(document.body).destroyInfinite();}
+    });
+//搜索功能
+$('#search_sure').click(function(){
+var setname = $('#search_input').val();
+$.alert(setname);   
+})
+
+
+</script>
+</body>
+</html>

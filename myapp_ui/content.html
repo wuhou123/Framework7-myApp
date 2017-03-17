@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width" name="viewport">
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="css/weui.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery-weui.css" />
+    <link rel="stylesheet" type="text/css" href="css/shequ.css"/>
+    <style>
+        #content_container{
+            position:fixed;
+            top:0;
+            width:100%;
+            height:25px;
+            background:#eee;                       
+        }
+        .left{
+            float:left;
+            padding:2px 0 2px 2px;
+        }
+        .right{
+            float:right;
+            padding:2px 2px 2px 0;
+        }
+        .weui_cell_bd p{
+            font-size: 14px;
+            font-family: 微软雅黑, Arial;
+        }
+        #cell_list{
+            margin-top:25px;
+            text-align:center;
+        }
+        .icon_back{
+            display:inline-block;
+            width:18px;
+            height:15px;
+            background:url(./images/back.png) no-repeat;
+            background-size:15px 15px;
+        }
+         .icon_next{
+            display:inline-block;
+            width:18px;
+            height:15px;
+            background:url(./images/next.png) no-repeat;
+            background-size:15px 15px;
+        }
+    </style>
+</head>
+<body>
+<div id="content_container">
+    <div class="left" onclick="history.go(-1)"><i class="icon_back"></i>返回</div>
+    <div class="right">下一章<i class="icon_next"></i></div>
+</div>
+<!--content-->
+<div id="cell_list">
+</div>
+<div class="weui_tabbar">
+    <a href="index.html" class="weui_tabbar_item ">
+        <div class="weui_tabbar_icon">
+            <img src="./images/iconfont-home.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">首页</p>
+    </a>
+    <a href="cart.html" class="weui_tabbar_item">
+        <div class="weui_tabbar_icon">
+            <img src="./images/iconfont-cart.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">视频</p>
+    </a>
+    <a href="faxian.html" class="weui_tabbar_item">
+        <div class="weui_tabbar_icon">
+            <img src="./images/iconfont-faxian.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">娱乐</p>
+    </a>
+    <a href="wo.html" class="weui_tabbar_item weui_bar_item_on">
+        <div class="weui_tabbar_icon">
+            <img src="./images/iconfont-wo.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">我</p>
+    </a>
+</div>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/jquery-weui.js"></script>
+<script>
+   //获取bookid
+    var newarray = window.location.href.split("?");
+    var getmsg = newarray[1];  
+   //获取到书目录
+   $.ajax({
+    type:"get",
+    url:"https://route.showapi.com/211-4?showapi_appid=32868&showapi_sign=37c9611696e648c9b5febf972ebffb99&"+getmsg,
+    dataType:"json",
+    success:function(msg){
+    var data = msg.showapi_res_body;
+    var code = msg.showapi_res_code;
+    console.log(code);
+    if(code != -2){
+         var trs = "";
+    trs = '<div><h3 style="text-align:center;padding-top:20px">'+data.cname+'</h3><p>'+data.txt+'</p></div>';
+    $('#cell_list').html(trs)   
+    }
+    else{
+    $('#cell_list').html("数据调用次数用完，请明日在试!")
+    }
+    },
+    error:function(){
+        $.alert("网络错误")
+    }
+   })
+
+
+</script>
+</body>
+</html>

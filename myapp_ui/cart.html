@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width" name="viewport">
+    <title>视频</title>
+    <link rel="stylesheet" type="text/css" href="css/weui.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery-weui.css" />
+    <link rel="stylesheet" type="text/css" href="css/shequ.css"/>
+</head>
+<body>
+<div class="weui_tab">
+    <div class="weui_tab_bd">    
+        <div id="list" class='demos-content-padded'> 
+        
+        </div>
+    </div>
+    <div class="weui_tabbar">
+        <a href="index.html" class="weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <img src="./images/iconfont-home.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">首页</p>
+        </a>
+        <a href="cart.html" class="weui_tabbar_item weui_bar_item_on">
+            <div class="weui_tabbar_icon">
+                <img src="./images/iconfont-cart.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">视频</p>
+        </a>
+        <a href="faxian.html" class="weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <img src="./images/iconfont-faxian.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">娱乐</p>
+        </a>
+        <a href="wo.html" class="weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <img src="./images/iconfont-wo.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">我</p>
+        </a>
+    </div>
+</div>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/jquery-weui.js"></script>
+<script src="js/myapp.js"></script>
+<script src="https://api.html5media.info/1.1.8/html5media.min.js"></script>
+<script>
+//start
+    var loading = false;  //状态标记
+    var tbody="";
+//初始加载
+$.ajax({
+    type:"get",
+    url:"http://route.showapi.com/255-1?showapi_appid=32868&showapi_sign=37c9611696e648c9b5febf972ebffb99&title=&type=41&page=1",
+    dataType:"json",
+    success:function(msg){
+     var data_msg = msg.showapi_res_body.pagebean.contentlist;
+     for(var key in data_msg){
+     var trs = "";
+     trs +='<div class="weui_panel">'+      
+'<div class="weui_panel_bd">'+
+    '<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">'+
+     ' <div class="weui_media_hd">'+
+        '<img class="weui_media_appmsg_thumb" src="'+data_msg[key].profile_image+'" alt="" style="border-radius:50%">'+
+      '</div>'+
+      '<div class="weui_media_bd">'+
+        '<h4 class="weui_media_title" style="font-size:14px;color:#666">'+data_msg[key].name+'</h4>'+        
+      '</div>'+
+    '</a>'+
+      '<div class="weui_media_box weui_media_text">'+
+      '<p style="color:#333;">'+data_msg[key].text+'</p>'+
+'<video id="video" src="'+data_msg[key].video_uri+'" controls preload="auto" poster="./images/haibao.png" style="width:100%;height:264px"></video>'+
+      '<ul class="weui_media_info">'+
+        '<li class="weui_media_info_meta">'+type_change(data_msg[key].type)+'</li>'+
+        '<li class="weui_media_info_meta">'+data_msg[key].create_time+'</li>'+        
+      '</ul>'+
+      '<ul class="weui_media_info">'+
+      '<li class="weui_media_info_meta"><span class="love_add" onclick="rel()">赞一个（'+data_msg[key].love+'）</span><span class="hate_add" onclick="sel()">吐槽一个（'+data_msg[key].hate+'）</span></li>'+
+      '<ul>'+
+    '</div>'+
+  '</div>'+
+'</div>';
+     tbody +=trs;
+     };
+     $("#list").append(tbody);
+    },
+    error:function(){
+        $.alert("网络错误")
+    }
+    });
+//点赞
+     function rel(){
+       $.toast('点赞成功');
+
+     };
+     function sel(){
+       $.toast("吐完了", "cancel"); 
+     }  
+//初始end
+    var i = 1;    
+        $(document.body).infinite().on("infinite", function() {
+        tbody ="";        
+        setTimeout(function(){                    
+        $.showLoading();
+        setTimeout(function(){
+        $.hideLoading();
+        },1000)
+        },800)        
+        if(loading) return;
+        loading = true;
+        setTimeout(function(){
+        i++;
+        $.ajax({
+    type:"get",
+    url:"http://route.showapi.com/255-1?showapi_appid=32868&showapi_sign=37c9611696e648c9b5febf972ebffb99&title=&type=41&page="+i,
+    dataType:"json",
+    success:function(msg){
+     var data_msg = msg.showapi_res_body.pagebean.contentlist;
+     for(var key in data_msg){
+     var trs = "";
+     trs +='<div class="weui_panel">'+      
+'<div class="weui_panel_bd">'+
+    '<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">'+
+     ' <div class="weui_media_hd">'+
+        '<img class="weui_media_appmsg_thumb" src="'+data_msg[key].profile_image+'" alt="" style="border-radius:50%">'+
+      '</div>'+
+      '<div class="weui_media_bd">'+
+        '<h4 class="weui_media_title" style="font-size:14px;color:#666">'+data_msg[key].name+'</h4>'+        
+      '</div>'+
+    '</a>'+
+      '<div class="weui_media_box weui_media_text">'+
+      '<p style="color:#333;">'+data_msg[key].text+'</p>'+
+'<video id="video" src="'+data_msg[key].video_uri+'" controls preload="auto" poster="./images/haibao.png" style="width:100%;height:264px"></video>'+
+      '<ul class="weui_media_info">'+
+        '<li class="weui_media_info_meta">'+type_change(data_msg[key].type)+'</li>'+
+        '<li class="weui_media_info_meta">'+data_msg[key].create_time+'</li>'+        
+      '</ul>'+
+      '<ul class="weui_media_info">'+
+      '<li class="weui_media_info_meta"><span class="love_add" onclick="rel()">赞一个（'+data_msg[key].love+'）</span><span class="hate_add" onclick="sel()">吐槽一个（'+data_msg[key].hate+'）</span></li>'+
+      '<ul>'+
+    '</div>'+
+  '</div>'+
+'</div>';
+     tbody +=trs;
+     };
+     $("#list").append(tbody)   
+    },
+    error:function(){
+        $.alert("网络错误")
+    }
+    });                      
+            
+            loading = false;
+        }, 2000);   //模拟延迟    
+    //if(i>=8){$(document.body).destroyInfinite();}
+    });
+
+        
+</script>
+</body>
+</html>
